@@ -571,7 +571,7 @@ export function el(id) {
  * Styled confirm dialog — replaces native browser confirm().
  * Returns a Promise<boolean>.
  */
-export function styledConfirm(message, { confirmText = 'Confirm', cancelText = 'Cancel', danger = false } = {}) {
+export function styledConfirm(message, { confirmText = window.t('common.confirm'), cancelText = window.t('common.cancel'), danger = false } = {}) {
   return new Promise(resolve => {
     // Reuse or create the modal
     let overlay = document.getElementById('styled-confirm-overlay');
@@ -595,6 +595,8 @@ export function styledConfirm(message, { confirmText = 'Confirm', cancelText = '
     const okBtn = document.getElementById('styled-confirm-ok');
     const cancelBtn = document.getElementById('styled-confirm-cancel');
 
+    const titleEl = document.getElementById('styled-confirm-title');
+    if (titleEl) titleEl.textContent = window.t('common.confirm');
     msgEl.textContent = message;
     okBtn.textContent = confirmText;
     cancelBtn.textContent = cancelText;
@@ -653,11 +655,11 @@ export function styledConfirm(message, { confirmText = 'Confirm', cancelText = '
  * Resolves to the trimmed string the user typed, or null on Cancel / Escape / backdrop.
  */
 export function styledPrompt(message, {
-  title = 'Name',
+  title = window.t('common.name'),
   defaultValue = '',
   placeholder = '',
-  confirmText = 'Save',
-  cancelText = 'Cancel',
+  confirmText = window.t('common.save'),
+  cancelText = window.t('common.cancel'),
   maxLength = 80,
 } = {}) {
   return new Promise(resolve => {
